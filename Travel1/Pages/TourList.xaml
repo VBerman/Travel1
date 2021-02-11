@@ -1,0 +1,87 @@
+﻿<Page x:Class="Путешествуй_по_России.Pages.TourList"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Путешествуй_по_России.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Tour list"
+      x:Name="this"
+      >
+
+    <Grid>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="9*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBlock Text="Сумма текущих туров: " VerticalAlignment="Center" />
+            <TextBlock Text="{Binding ElementName=this, Path= PriceTours, StringFormat={}{0:n2} РУБ, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            <Button Grid.Row="0" HorizontalAlignment="Right" Click="Button_Click" Margin="10 0 10 0" Width="50">Sort</Button>
+        </StackPanel>
+        
+        <Grid Grid.Row="1" HorizontalAlignment="Center" MaxWidth="1000">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Введите текст для поиска: " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Margin="0 0 0 5"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Margin="0 0 0 5" x:Name="FindString" TextChanged="FindString_TextChanged"/>
+            <TextBlock Text="Выберите тип: " Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Margin="0 0 0 5"/>
+            <ComboBox ItemsSource="{Binding ElementName=this, Path=Types}" Grid.Row="1" Grid.Column="1" Margin="0 0 0 5" SelectedItem="Все типы" x:Name="SelectedType" SelectionChanged="SelectedType_SelectionChanged"/>
+            <CheckBox Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" Margin="0 0 0 5" x:Name="ActualTour" Click="ActualTour_Checked"/>
+            <TextBlock Text="только актуальные туры" Margin="5 0 0 5" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" />
+        </Grid>
+        <ListView ItemsSource="{Binding ElementName=this, Path=Tours}" Grid.Row="2" HorizontalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden" HorizontalAlignment="Center" x:Name="Testim">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+
+                <DataTemplate>
+                    <!--<Border BorderBrush="Black" BorderThickness="1.5" Padding="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">-->
+                        <Grid Margin="10 0 10 0" Width="400">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="70"/>
+                            <RowDefinition Height="280"/>
+                                <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="{Binding Name}" TextAlignment="Center" x:Name="NameTour" Grid.Row="0" Grid.Column="0" TextWrapping="Wrap" Grid.ColumnSpan="2"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26"/>
+                            <Image Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Width="400" Stretch="Fill" Margin="0 5 0 5">
+                                <Image.Source>
+                                    <Binding Path="ImagePreview" IsAsync="True">
+                                        <Binding.TargetNullValue >
+                                            <ImageSource>/Resources/NullBackground.png</ImageSource>
+                                        </Binding.TargetNullValue>
+
+                                    </Binding>
+                                </Image.Source>
+                            </Image>
+                        <TextBlock Text="{Binding Price, StringFormat={}{0:n0} РУБ}" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontSize="26" FontWeight="Bold"/>
+                        <TextBlock FontSize="18" Text="{Binding ActualText.Text}" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Bottom" Foreground="{Binding ActualText.Color}"/>
+                        <TextBlock FontSize="18" Text="{Binding TicketCount, StringFormat={}Билетов: {0}}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+                        </Grid>
+                    <!--</Border>-->
+                </DataTemplate>
+
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>
