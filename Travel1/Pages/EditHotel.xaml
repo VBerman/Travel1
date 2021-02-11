@@ -9,6 +9,22 @@
       Title="Edit hotel">
 
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="9*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Name" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Text="Count stars" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Text="Country" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBox Text="{Binding Name}" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="450"/>
+        <TextBox Text="{Binding CountOfStars}" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="150"/>
+        <ComboBox SelectedItem="{Binding Country}" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="450" DisplayMemberPath="Name" x:Name="ComboCountries"/>
+        <Button Content="Save" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" Width="100" Height="25" Click="Button_Click"/>
     </Grid>
 </Page>
